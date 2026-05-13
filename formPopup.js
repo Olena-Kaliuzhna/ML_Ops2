@@ -1,65 +1,65 @@
 (() => {
-  const refs = {
-    openModalBtn: document.querySelector('[data-modal-open]'),
-    closeModalBtn: document.querySelector('[data-modal-close]'),
-    modal: document.querySelector('[data-modal]'),
-    projectForm: document.querySelector('#Project-form'),
-    popupForm: document.querySelector('.form_popup'),
+  const openModalBtn = document.querySelector('[data-modal-open]');
+  const closeModalBtn = document.querySelector('[data-modal-close]');
+  const modal = document.querySelector('[data-modal]');
+  const projectForm = document.querySelector('#Project-form');
+  const popupForm = document.querySelector('.form_popup');
 
-    htmlAlert: document.querySelector('.html-alert'),
-    htmlAlertText: document.querySelector('#htmlAlertText'),
-    htmlAlertClose: document.querySelector('#htmlAlertClose'),
-  };
+  const htmlAlert = document.querySelector('.html-alert');
+  const htmlAlertText = document.querySelector('#htmlAlertText');
+  const htmlAlertClose = document.querySelector('#htmlAlertClose');
 
   let firstStepData = null;
   let alertTimeout = null;
+ 
+  openModalBtn.addEventListener('click', formDatas);
+  closeModalBtn.addEventListener('click', closeBTN);  
 
-  refs.openModalBtn.addEventListener('click', formDatas);
-  refs.closeModalBtn.addEventListener('click', closeBTN);  
+  function showAlert(message) {
+    if (!htmlAlert || !htmlAlertText) return;
 
+    clearTimeout(alertTimeout);
 
-function showAlert(message) {
-  if (!htmlAlert || !htmlAlertText) return;
+    htmlAlertText.textContent = message;
+    htmlAlert.classList.add('is-visible');
 
-  clearTimeout(alertTimeout);
-
-  htmlAlertText.textContent = message;
-  htmlAlert.classList.add('is-visible');
-
-  alertTimeout = setTimeout(closeAlert, 2000);
-}
-
-
-function closeAlert() {
-  if (htmlAlert) {
-    htmlAlert.classList.remove('is-visible');
+    alertTimeout = setTimeout(closeAlert, 2000);
   }
-}
 
-if (htmlAlertClose) {
-  htmlAlertClose.addEventListener('click', closeAlert);
-}
+  function closeAlert() {
+    if (htmlAlert) {
+      htmlAlert.classList.remove('is-visible');
+    }
+  }
 
+  if (htmlAlertClose) {
+    htmlAlertClose.addEventListener('click', closeAlert);
+  }
 
-function closeBTN() {
-    event.stopPropagation();
-    document.body.classList.toggle('modal-open');
-    refs.modal.classList.toggle('is-hidden');
-    console.log('click btn');
-}
+ 
+  function closeBTN(event) {
+    if (event && typeof event.stopPropagation === 'function') {
+      event.stopPropagation();
+    }
+    document.body.classList.remove('modal-open');
+    modal.classList.add('is-hidden');
+    console.log('click btn / closed');
+  }
 
-function toggleModal() {
-  document.body.classList.toggle('modal-open');
-  refs.modal.classList.toggle('is-hidden');
-  console.log('click bg');
-}
+  
+  function openModal() {
+    document.body.classList.add('modal-open');
+    modal.classList.remove('is-hidden');
+    console.log('modal opened');
+  }
 
-function formDatas() {  
-  console.log('click form');
+  function formDatas() {  
+    console.log('click form');
 
-  const formData = new FormData(refs.projectForm); 
-  const data = Object.fromEntries(formData);
+    const formData = new FormData(projectForm); 
+    const data = Object.fromEntries(formData);
 
+   
     if (Object.keys(data).length < 4) {
       showAlert("Please select answers to all questions.");
       return;
@@ -67,24 +67,18 @@ function formDatas() {
 
     firstStepData = data;
     closeAlert();
-    toggleModal(); 
-    console.log("Stage 1 completed successfully. Survey data saved:", firstStepData);
-    
-  popupFormSubmit();
+    openModal(); 
   }
 
-
-function popupFormSubmit() {
-refs.popupForm.addEventListener('submit', function (event) {
+  popupForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const popupFormData = new FormData(refs.popupForm);
+    const popupFormData = new FormData(popupForm);
     const popupData = Object.fromEntries(popupFormData);
 
     const clientName = popupData.client_name ? popupData.client_name.trim() : '';
     const clientMail = popupData.client_mail ? popupData.client_mail.trim() : '';
 
-    
     if (!clientName || !clientMail) {
       showAlert("Please fill in both fields: name and email.");
       return;
@@ -95,21 +89,19 @@ refs.popupForm.addEventListener('submit', function (event) {
       showAlert("Please enter a valid email address.");
       return;
     }
+    
     closeAlert();
+    
     const finalData = {
       ...firstStepData, 
       ...popupData      
     };
-     
-    console.log("Stage 2 completed. All data collected successfully:", finalData);
 
+    console.log('Final submitted data:', finalData);
+    
    
-    refs.popupForm.reset();
-    refs.projectForm.reset();
-    closeBTN();
+    popupForm.reset();
+    projectForm.reset();
+    closeBTN(); 
   });
-}
-
-
-
 })();
