@@ -153,7 +153,8 @@
             offer a standard package. Answer 4 quick
             questions to help us recommend the solution that suits you best.</p>
           <h3 class="ML_Ops__YourProject-title ">Quick Poll</h3>
-          <form action="" class="ML_Ops__YourProject-form">
+          <form  class="ML_Ops__YourProject-form" id="Project-form">
+            <div class="ML_Ops__YourProject-form--inner">
             <h4 class="ML_Ops__YourProject-form--title subTitle">4 Quick MLOps Check</h4>
             <ul class="ML_Ops__YourProject-form--list">
               <li class="ML_Ops__YourProject-form--item">
@@ -171,40 +172,41 @@
                 <h5 class="ML_Ops__YourProject-form--item-title">2. What is the main pain point in your ML workflow?</h5>
                 <div class="ML_Ops__YourProject-form--list-inner">
 
-                  <input id="SlowDeployment" type="radio" value="Slow deployment" name="main pain" class="ML_Ops__YourProject-form--input">
+                  <input id="SlowDeployment" type="radio" value="Slow deployment" name="main_pain" class="ML_Ops__YourProject-form--input">
                   <label for="SlowDeployment" class="ML_Ops__YourProject-form--label">Slow deployment</label>
-                  <input id="HighCosts" type="radio" value="High costs" name="main pain" class="ML_Ops__YourProject-form--input">
+                  <input id="HighCosts" type="radio" value="High costs" name="main_pain" class="ML_Ops__YourProject-form--input">
                   <label for="HighCosts" class="ML_Ops__YourProject-form--label">High costs</label>
-                  <input id="LackOfAutomation" type="radio" value="Lack of automation" name="main pain" class="ML_Ops__YourProject-form--input">
+                  <input id="LackOfAutomation" type="radio" value="Lack of automation" name="main_pain" class="ML_Ops__YourProject-form--input">
                   <label for="LackOfAutomation" class="ML_Ops__YourProject-form--label">Lack of automation</label>
                 </div>
               </li>
               <li class="ML_Ops__YourProject-form--item">
                 <h5 class="ML_Ops__YourProject-form--item-title">3. Would you like to improve reliability and performance of your ML systems?</h5>
                 <div class="ML_Ops__YourProject-form--list-inner">
-                  <input id="wouldLike" type="radio" value="would like to improve " name="like to improve" class="ML_Ops__YourProject-form--input">
+                  <input id="wouldLike" type="radio" value="would like to improve " name="like_to_improve" class="ML_Ops__YourProject-form--input">
                   <label for="wouldLike" class="ML_Ops__YourProject-form--label">Yes</label>
-                  <input id="wouldn'tLike" type="radio" value="wouldn't like to improve" name="like to improve" class="ML_Ops__YourProject-form--input">
+                  <input id="wouldn'tLike" type="radio" value="wouldn't like to improve" name="like_to_improve" class="ML_Ops__YourProject-form--input">
                   <label for="wouldn'tLike" class="ML_Ops__YourProject-form--label">No</label>
-                  <input id="maybeI’dLike" type="radio" value="Maybe" name="like to improve" class="ML_Ops__YourProject-form--input">
+                  <input id="maybeI’dLike" type="radio" value="Maybe" name="like_to_improve" class="ML_Ops__YourProject-form--input">
                   <label for="maybeI’dLike" class="ML_Ops__YourProject-form--label">Maybe</label>
                 </div>
               </li>
               <li class="ML_Ops__YourProject-form--item">
                 <h5 class="ML_Ops__YourProject-form--item-title">4. Is scaling ML initiatives a priority for your team?</h5>
                 <div class="ML_Ops__YourProject-form--list-inner">
-                  <input id="scalingIsPriority" type="radio" value="Yes" name="scaling is priority" class="ML_Ops__YourProject-form--input">
+                  <input id="scalingIsPriority" type="radio" value="Yes" name="scaling_is_priority" class="ML_Ops__YourProject-form--input">
                   <label for="scalingIsPriority" class="ML_Ops__YourProject-form--label">Yes</label>
-                  <input id="scalingIsn'tPriority" type="radio" value="No" name="scaling is priority" class="ML_Ops__YourProject-form--input">
+                  <input id="scalingIsn'tPriority" type="radio" value="No" name="scaling_is_priority" class="ML_Ops__YourProject-form--input">
                   <label for="scalingIsn'tPriority" class="ML_Ops__YourProject-form--label">No</label>
-                  <input id="PlanToScale" type="radio" value="Planning" name="scaling is priority" class="ML_Ops__YourProject-form--input">
+                  <input id="PlanToScale" type="radio" value="Planning" name="scaling_is_priority" class="ML_Ops__YourProject-form--input">
                   <label for="PlanToScale" class="ML_Ops__YourProject-form--label">Planning</label>
                 </div>
               </li>
             </ul>
-
+          </div>
+          <button type="button" class="ML_Ops__YourProject-form--button" data-modal-open>Book Call</button>
           </form>
-          <button class="ML_Ops__YourProject-form--button" data-modal-open>Book Call</button>
+          
         </div>
       </div>
     </section>
@@ -221,9 +223,9 @@
             <h2 class="form_popup-title title">Describe your project</h2>
             <p class="form_popup-text">We believe the right support starts with understanding your project.</p>
             <div class="form_popup-fields">
-              <input class="form_popup-input" type="text" name="name" placeholder="Your name">
+              <input class="form_popup-input" type="text" name="client_name" placeholder="Your name">
               <!-- <label for="forms_popup-name" class="forms_popup-label">Your name</label> -->
-              <input class="form_popup-input" type="email" name="mail" placeholder="Your email">
+              <input class="form_popup-input" type="email" name="client_mail" placeholder="Your email">
               <!-- <label for="forms_popup-mail" class="forms_popup-label">Your email</label> -->
             </div>
             <button class="form_popup-button" type="submit">Confirm</button>
@@ -231,6 +233,11 @@
         </div>
       </div>
     </div>
+
+    <div id="htmlAlert" class="html-alert">
+  <span id="htmlAlertText" class="html-alert__text"></span>
+  <button type="button" id="htmlAlertClose" class="html-alert__close">&times;</button>
+</div>
     <script src="./formPopup.js"></script>
 </body>
 
